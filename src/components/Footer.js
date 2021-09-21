@@ -1,13 +1,17 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useDispatch } from "react-redux"
-import { sortElements } from "../store/slices/catalogSlice"
+import { sortElements, fetchCatalog } from "../store/slices/catalogSlice"
 
 export default function Footer() {
   const [sortType, setSortType] = useState("image")
-  const [sortDirection, setSortDirection] = useState("descend")
+  const [sortDirection, setSortDirection] = useState("ascend")
   const dispatch = useDispatch()
 
-  const sortTypeHandler = (e) => setSortType(e.target.value)
+  useEffect(() => {
+    dispatch(sortElements({sortType, sortDirection}))
+  }, [sortType, sortDirection])
+
+  const sortTypeHandler = (e) => setSortType(state => state = e.target.value)
 
   const sortDirectionHandler = (e) => setSortDirection(e.target.value)
 
@@ -26,12 +30,12 @@ export default function Footer() {
       </div>
       <div>
       <span>Sort Direction:</span>
-        <input onChange={sortDirectionHandler} id="ascend" type="radio" name="sort-dir" value="ascend" />
+        <input onChange={sortDirectionHandler} id="ascend" type="radio" name="sort-dir" value="ascend" defaultChecked />
         <label htmlFor="ascend">Ascending</label>
-        <input onChange={sortDirectionHandler} id="descend" type="radio" name="sort-dir" value="descend" defaultChecked />
+        <input onChange={sortDirectionHandler} id="descend" type="radio" name="sort-dir" value="descend" />
         <label htmlFor="descend">Descending</label>
       </div>
-      <button onClick={() => dispatch(sortElements({sortType, sortDirection}))}>Sort</button>
+      <button onClick={() => dispatch(fetchCatalog())}>Reset</button>
     </footer>
   )
 }

@@ -1,9 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 const initialState = {
-  elements: [],
+  elements: JSON.parse(localStorage.elemets ?? '[]'),
   loading: false,
   error: null
+}
+
+function saveToLocalStorage(state) {
+  localStorage.elemets = JSON.stringify(state)
 }
 
 export const fetchCatalog = createAsyncThunk('catalog/fetchCatalog', async () => {
@@ -31,6 +35,7 @@ const catalogSlice = createSlice({
     deleteElement(state, action) {
       const index = state.elements.findIndex(elem => elem.image === action.payload)
       state.elements.splice(index, 1)
+      saveToLocalStorage(state.elements)
     }
   },
   extraReducers: (builder) => {
@@ -41,6 +46,7 @@ const catalogSlice = createSlice({
       .addCase(fetchCatalog.fulfilled, (state, action) => {
         state.elements = action.payload
         state.loading = false
+        saveToLocalStorage(state.elements)
       })
       .addCase(fetchCatalog.rejected, (state, action) => {
         state.loading = false

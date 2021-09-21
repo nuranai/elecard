@@ -1,28 +1,37 @@
-import { useEffect } from "react"
-import ReactPaginate from "react-paginate"
-
+import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchCatalog } from "../store/slices/catalogSlice"
+import Spinner from './Spinner'
+import ReactPaginate from "react-paginate"
 import Card from "./Card"
 
-export default function Main() {
-  const dispatch = useDispatch()
-  const catalog = useSelector(state => state.catalog)
 
+export default function Tree() {
+  const [elementPaginationStart, setElementPaginationStart] = useState(0)
+
+  const dispatch = useDispatch()
+
+  const catalog = useSelector(state => state.catalog)
   useEffect(() => {
-    dispatch(fetchCatalog())
+    if (!catalog.elements[0]) {
+      dispatch(fetchCatalog())
+    }
+    //   dispatch(fetchCatalog())
   }, [])
 
   return (
     <div className="page_wrapper">
+
+      {catalog.loading ? <Spinner /> : null}
       <ul className="card_wrapper">
-        {catalog.elements.slice(0, 50).map((elem, index) =>
-          <Card element={elem} key={index}/>
+        {catalog.elements.slice(elementPaginationStart, elementPaginationStart + 50).map((elem, index) =>
+          <Card element={elem} key={index} />
         )}
       </ul>
 
       <ReactPaginate
-        pageCount={catalog.elements.length / 10}
+        onPageChange={({ selected }) => { setElementPaginationStart(selected * 50); console.log(selected * 50) }}
+        pageCount={catalog.elements.length / 50}
         containerClassName={'pagination__container'}
         pageLinkClassName={'pagination__page'}
         activeLinkClassName={'pagination__active'}
