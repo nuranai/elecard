@@ -19,7 +19,20 @@ export const fetchCatalog = createAsyncThunk('catalog/fetchCatalog', async () =>
 const catalogSlice = createSlice({
   name: "catalog",
   initialState,
-  reducers: {},
+  reducers: {
+    sortElements(state, action) {
+      state.elements.sort((a, b) => {
+        if (a[action.payload.sortType] < b[action.payload.sortType]) { return action.payload.sortDirection === 'ascend' ? -1 : 1 }
+        if (a[action.payload.sortType] > b[action.payload.sortType]) { return action.payload.sortDirection === 'ascend' ? 1 : -1 }
+        return 0
+      }
+      )
+    },
+    deleteElement(state, action) {
+      const index = state.elements.findIndex(elem => elem.image === action.payload)
+      state.elements.splice(index, 1)
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchCatalog.pending, (state, action) => {
       state.loading = true
@@ -37,3 +50,5 @@ const catalogSlice = createSlice({
 })
 
 export default catalogSlice.reducer
+
+export const { sortElements, deleteElement } = catalogSlice.actions

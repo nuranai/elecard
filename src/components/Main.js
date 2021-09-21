@@ -1,4 +1,6 @@
 import { useEffect } from "react"
+import ReactPaginate from "react-paginate"
+
 import { useDispatch, useSelector } from "react-redux"
 import { fetchCatalog } from "../store/slices/catalogSlice"
 import Card from "./Card"
@@ -12,12 +14,22 @@ export default function Main() {
   }, [])
 
   return (
-    <div>
-      <ul>
+    <div className="page_wrapper">
+      <ul className="card_wrapper">
         {catalog.elements.slice(0, 50).map((elem, index) =>
-          <Card url={elem.image} key={index}/>
+          <Card element={elem} key={index}/>
         )}
       </ul>
+
+      <ReactPaginate
+        pageCount={catalog.elements.length / 10}
+        containerClassName={'pagination__container'}
+        pageLinkClassName={'pagination__page'}
+        activeLinkClassName={'pagination__active'}
+        nextLinkClassName={'pagination__page pagination__button'}
+        previousLinkClassName={'pagination__page pagination__button'}
+        breakLinkClassName={'pagination__page'}
+      />
     </div>
   )
 }
