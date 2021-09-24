@@ -5,7 +5,7 @@ import { sortCards, resetCards } from "../store/slices/catalogSlice"
 export default function Footer() {
   const [sortType, setSortType] = useState("image")
   const [sortDirection, setSortDirection] = useState("ascend")
-  
+
   const view = useSelector(state => state.view)
   const dispatch = useDispatch()
 
@@ -13,7 +13,7 @@ export default function Footer() {
     dispatch(sortCards({ sortType, sortDirection }))
   }, [sortType, sortDirection])
 
-  const sortTypeHandler = (e) => setSortType(state => state = e.target.value)
+  const sortTypeHandler = (e) => setSortType(e.target.value)
 
   const sortDirectionHandler = (e) => setSortDirection(e.target.value)
 
@@ -35,7 +35,8 @@ export default function Footer() {
               type="radio"
               name="sort-type"
               value="image"
-              checked={sortType === 'image'} />
+              checked={sortType === 'image'}
+            />
             <label htmlFor="name">Name</label>
             <input
               onChange={sortTypeHandler}
@@ -43,6 +44,7 @@ export default function Footer() {
               type="radio"
               name="sort-type"
               value="timestamp"
+              checked={sortType === 'timestamp'}
             />
             <label htmlFor="date">Date</label>
             <input
@@ -51,6 +53,7 @@ export default function Footer() {
               type="radio"
               name="sort-type"
               value="category"
+              checked={sortType === 'category'}
             />
             <label htmlFor="category">Category</label>
             <input
@@ -59,6 +62,7 @@ export default function Footer() {
               type="radio"
               name="sort-type"
               value="filesize"
+              checked={sortType === 'filesize'}
             />
             <label htmlFor="size">Size</label>
           </div>
@@ -70,7 +74,8 @@ export default function Footer() {
               type="radio"
               name="sort-dir"
               value="ascend"
-              checked={sortDirection === 'ascend'} />
+              checked={sortDirection === 'ascend'} 
+              />
             <label htmlFor="ascend">Ascending</label>
             <input
               onChange={sortDirectionHandler}
@@ -78,6 +83,7 @@ export default function Footer() {
               type="radio"
               name="sort-dir"
               value="descend"
+              checked={sortDirection === 'descend'} 
             />
             <label htmlFor="descend">Descending</label>
           </div>
