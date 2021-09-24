@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/elecard/static/css/main.e85dfde5.chunk.css",
+    "main.js": "/elecard/static/js/main.123d07e7.chunk.js",
+    "main.js.map": "/elecard/static/js/main.123d07e7.chunk.js.map",
+    "runtime-main.js": "/elecard/static/js/runtime-main.acb90e24.js",
+    "runtime-main.js.map": "/elecard/static/js/runtime-main.acb90e24.js.map",
+    "static/js/2.3e4e5ba9.chunk.js": "/elecard/static/js/2.3e4e5ba9.chunk.js",
+    "static/js/2.3e4e5ba9.chunk.js.map": "/elecard/static/js/2.3e4e5ba9.chunk.js.map",
+    "index.html": "/elecard/index.html",
+    "static/css/main.e85dfde5.chunk.css.map": "/elecard/static/css/main.e85dfde5.chunk.css.map",
+    "static/js/2.3e4e5ba9.chunk.js.LICENSE.txt": "/elecard/static/js/2.3e4e5ba9.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.acb90e24.js",
+    "static/js/2.3e4e5ba9.chunk.js",
+    "static/css/main.e85dfde5.chunk.css",
+    "static/js/main.123d07e7.chunk.js"
+  ]
+}
