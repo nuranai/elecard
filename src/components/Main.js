@@ -12,10 +12,12 @@ export default function Tree() {
   const dispatch = useDispatch()
 
   const catalog = useSelector(state => state.catalog)
+  
   useEffect(() => {
-    if (!catalog.elements[0]) {
+    // if (!catalog.elements[0]) {
       dispatch(fetchCatalog())
-    }
+    // }
+    // console.log('hello')
     //   dispatch(fetchCatalog())
   }, [])
 
@@ -24,7 +26,7 @@ export default function Tree() {
 
       {catalog.loading ? <Spinner /> : null}
       <ul className="card_wrapper">
-        {catalog.elements.slice(elementPaginationStart, elementPaginationStart + 50).map((elem, index) =>
+        {catalog.cardElements.slice(elementPaginationStart, elementPaginationStart + 50).map((elem, index) =>
           <Card element={elem} key={index} />
         )}
       </ul>

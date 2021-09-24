@@ -41,8 +41,6 @@ header label {
 }
 
 header input:checked+label {
-  /* width: 100%; */
-  /* height: 100%; */
   background-color: green;
 }
 
@@ -54,11 +52,11 @@ header input:checked+label {
 }
 
 .card_wrapper {
-  margin   : auto;
-  width    : 100%;
-  height   : auto;
-  display  : flex;
-  flex-wrap: wrap;
+  margin     : auto;
+  width      : 95%;
+  height     : auto;
+  display    : flex;
+  flex-wrap  : wrap;
   align-items: flex-start;
 }
 
@@ -68,11 +66,33 @@ header input:checked+label {
   flex-basis      : 19.5%;
   margin          : 2px;
   padding         : 5px;
-  /* width        :100% */
-  /* min-height   : 100px; */
   background-color: #ccc;
   position        : relative;
   list-style      : none;
+}
+
+@media screen and (max-width:960px) {
+  .card {
+    flex-basis: 20%;
+  }
+}
+
+@media screen and (max-width:960px) {
+  .card {
+    flex-basis: 32%;
+  }
+}
+
+@media screen and (max-width:760px) {
+  .card {
+    flex-basis: 45%;
+  }
+}
+
+@media screen and (max-width:480px) {
+  .card {
+    flex-basis: 100%;
+  }
 }
 
 .card img {
@@ -88,6 +108,68 @@ header input:checked+label {
 }
 
 /* Tree */
+
+.tree_root li {
+  margin-left: 20px;
+  list-style : none;
+}
+
+.carrier {
+  cursor: pointer;
+}
+
+.carrier::before {
+  content     : "\25B6";
+  color       : black;
+  display     : inline-block;
+  margin-right: 5px;
+}
+
+.carrier_active::before {
+  transform: rotate(90deg);
+}
+
+.nested {
+  display: none;
+}
+
+.active {
+  display: block;
+}
+
+.thumbnail {
+  display   : block;
+  padding   : 8px;
+  max-width : 20%;
+  max-height: 30%;
+}
+
+.modal_content {
+  position        : fixed;
+  background-color: rgba(20, 20, 20, 0.3);
+  top             : 0;
+  left            : 0;
+  width           : 100%;
+  height          : 100%;
+  z-index         : 99;
+}
+
+.modal_close {
+  position: absolute;
+  top     : 5%;
+  left    : 95%;
+  color   : white;
+  z-index : 99;
+  cursor  : pointer;
+}
+
+.full_img {
+  position : relative;
+  display  : block;
+  top      : 50%;
+  left     : 50%;
+  transform: translate(-50%, -50%);
+}
 
 /* Footer */
 
@@ -122,7 +204,7 @@ footer span {
   width           : 100%;
   height          : 100%;
   background-color: rgba(0, 0, 0, 0.3);
-  z-index: 999;
+  z-index         : 999;
 
 }
 
@@ -160,6 +242,12 @@ footer span {
   position  : relative;
   display   : flex;
   list-style: none;
+}
+
+@media screen and (max-width:960px) {
+  .pagination__container {
+    width: 90%;
+  }
 }
 
 .pagination__page {

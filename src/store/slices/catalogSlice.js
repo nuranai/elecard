@@ -1,14 +1,18 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 const initialState = {
-  elements: JSON.parse(localStorage.elemets ?? '[]'),
+  cardElements: JSON.parse(localStorage.elemets ?? '[]'),
+  elements: [],
   loading: false,
-  error: null
+  error: null,
+  categories: []
 }
+
 
 function saveToLocalStorage(state) {
   localStorage.elemets = JSON.stringify(state)
 }
+
 
 export const fetchCatalog = createAsyncThunk('catalog/fetchCatalog', async () => {
   try {
@@ -25,7 +29,7 @@ const catalogSlice = createSlice({
   initialState,
   reducers: {
     sortElements(state, action) {
-      state.elements.sort((a, b) => {
+      state.cardElements.sort((a, b) => {
         if (a[action.payload.sortType] < b[action.payload.sortType]) { return action.payload.sortDirection === 'ascend' ? -1 : 1 }
         if (a[action.payload.sortType] > b[action.payload.sortType]) { return action.payload.sortDirection === 'ascend' ? 1 : -1 }
         return 0
@@ -33,8 +37,12 @@ const catalogSlice = createSlice({
       )
     },
     deleteElement(state, action) {
-      const index = state.elements.findIndex(elem => elem.image === action.payload)
-      state.elements.splice(index, 1)
+      const index = state.cardElements.findIndex(elem => elem.image === action.payload)
+      state.cardElements.splice(index, 1)
+      saveToLocalStorage(state.cardElements)
+    },
+    resetCards(state, action) {
+      state.cardElements = state.elements
       saveToLocalStorage(state.elements)
     }
   },
@@ -46,7 +54,8 @@ const catalogSlice = createSlice({
       .addCase(fetchCatalog.fulfilled, (state, action) => {
         state.elements = action.payload
         state.loading = false
-        saveToLocalStorage(state.elements)
+        if (!state.cardElements[0]) state.cardElements = state.elements
+        state.categories = Array.from(action.payload.reduce((acc, val) => acc.add(val.category), new Set()))
       })
       .addCase(fetchCatalog.rejected, (state, action) => {
         state.loading = false
@@ -57,4 +66,4 @@ const catalogSlice = createSlice({
 
 export default catalogSlice.reducer
 
-export const { sortElements, deleteElement } = catalogSlice.actions
+export const { sortElements, deleteElement, resetCards } = catalogSlice.actions
