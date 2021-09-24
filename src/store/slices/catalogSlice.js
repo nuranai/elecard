@@ -28,15 +28,15 @@ const catalogSlice = createSlice({
   name: "catalog",
   initialState,
   reducers: {
-    sortElements(state, action) {
+    sortCards(state, action) {
       state.cardElements.sort((a, b) => {
-        if (a[action.payload.sortType] < b[action.payload.sortType]) { return action.payload.sortDirection === 'ascend' ? -1 : 1 }
-        if (a[action.payload.sortType] > b[action.payload.sortType]) { return action.payload.sortDirection === 'ascend' ? 1 : -1 }
+        if (a[action.payload.sortType] < b[action.payload.sortType]) return action.payload.sortDirection === 'ascend' ? -1 : 1
+        if (a[action.payload.sortType] > b[action.payload.sortType]) return action.payload.sortDirection === 'ascend' ? 1 : -1
         return 0
       }
       )
     },
-    deleteElement(state, action) {
+    deleteCard(state, action) {
       const index = state.cardElements.findIndex(elem => elem.image === action.payload)
       state.cardElements.splice(index, 1)
       saveToLocalStorage(state.cardElements)
@@ -66,4 +66,4 @@ const catalogSlice = createSlice({
 
 export default catalogSlice.reducer
 
-export const { sortElements, deleteElement, resetCards } = catalogSlice.actions
+export const { sortCards, deleteCard, resetCards } = catalogSlice.actions

@@ -7,33 +7,29 @@ import Card from "./Card"
 
 
 export default function Tree() {
-  const [elementPaginationStart, setElementPaginationStart] = useState(0)
+  const [cardsPaginationStart, setCardsPaginationStart] = useState(0)
 
   const dispatch = useDispatch()
 
-  const catalog = useSelector(state => state.catalog)
+  const cards = useSelector(state => state.catalog.cardElements)
   
   useEffect(() => {
-    // if (!catalog.elements[0]) {
       dispatch(fetchCatalog())
-    // }
-    // console.log('hello')
-    //   dispatch(fetchCatalog())
   }, [])
 
   return (
     <div className="page_wrapper">
 
-      {catalog.loading ? <Spinner /> : null}
+      {cards.loading ? <Spinner /> : null}
       <ul className="card_wrapper">
-        {catalog.cardElements.slice(elementPaginationStart, elementPaginationStart + 50).map((elem, index) =>
+        {cards.slice(cardsPaginationStart, cardsPaginationStart + 50).map((elem, index) =>
           <Card element={elem} key={index} />
         )}
       </ul>
 
       <ReactPaginate
-        onPageChange={({ selected }) => { setElementPaginationStart(selected * 50); console.log(selected * 50) }}
-        pageCount={catalog.elements.length / 50}
+        onPageChange={({ selected }) => { setCardsPaginationStart(selected * 50); console.log(selected * 50) }}
+        pageCount={cards.length / 50}
         containerClassName={'pagination__container'}
         pageLinkClassName={'pagination__page'}
         activeLinkClassName={'pagination__active'}

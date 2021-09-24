@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { sortElements, resetCards } from "../store/slices/catalogSlice"
+import { sortCards, resetCards } from "../store/slices/catalogSlice"
 
 export default function Footer() {
   const [sortType, setSortType] = useState("image")
   const [sortDirection, setSortDirection] = useState("ascend")
+  
   const view = useSelector(state => state.view)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(sortElements({ sortType, sortDirection }))
+    dispatch(sortCards({ sortType, sortDirection }))
   }, [sortType, sortDirection])
 
   const sortTypeHandler = (e) => setSortType(state => state = e.target.value)
